@@ -1,0 +1,73 @@
+﻿@model Customer
+
+@{
+	ViewData["Title"] = "Rentals";
+}
+
+<style>
+    .form-group {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    }
+
+    .list-group {
+    margin-bottom: 20px;
+    }
+</style>
+
+<h2>Rentals</h2>
+
+<form id = "Rentals">
+    <div class ="form-group">
+        <label>Customer</label>
+        <div class = "tt-container">
+            <select id = "customer" name = "customer" class="form-select" aria-label="customer">
+                <option selected>Select customer</option>
+            </select>
+        </div>
+    </div>
+</form>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function() {  
+           $.ajax({
+                url: "/api/customers", // адрес, на который будет отправлен запрос // новый контекст исполнения функции
+                success: function(customers){ // если запрос успешен вызываем функцию
+                    console.log(customers);
+                $.each(customers, function (i, item) {
+                     $('#customer').append( "<option>" + customers[i].name + "</option>" );
+                });
+                }
+            });
+
+            var vm = {
+                customerName: " "    
+            };
+
+             $("#customer").on("click", function () {
+                 var selected = $(this).val();
+                 if(selected !== vm.customerName && selected !== "Select customer") {
+
+                 console.log(selected);
+                 $.ajax({
+                    url: "/api/customers?query=" + selected, // адрес, на который будет отправлен запрос // новый контекст исполнения функции
+                    success: function(customer){ // если запрос успешен вызываем функцию
+                    console.log(customer); 
+                     $.ajax({
+                    url: "/api/newrentals?id=" + customer.id, // адрес, на который будет отправлен запрос // новый контекст исполнения функции
+                    success: function(){ // если запрос успешен вызываем функцию
+                   
+
+                }
+                });
+                }
+                });
+
+                 vm.customerName = selected
+                 }
+             });
+        });
+    </script>
+}

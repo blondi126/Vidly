@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Customers";
+}
+
+    <h2>Customers</h2>
+   
+<style>
+    .btn{
+        text-transform: none;
+    }
+    .btn-link {
+        text-decoration: none;
+    }
+    .table{
+        vertical-align:middle;
+    }
+</style>
+
+<table id="customers" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Customer</th>
+      <th scope="col">Membership Type</th>
+    </tr>
+  </thead>
+  <tbody>  
+      
+  </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+         $(document).ready(function () {
+
+            var table = $("#customers").DataTable({
+                 ajax: {
+                     url: "/api/customers",
+                     dataSrc: ""
+                 },
+                 columns: [
+                     {
+                         data: "name",
+                     },
+                     {
+                         data: "membershipType.name"
+                     }, 
+                 ]
+             });
+         });
+    </script>
+}

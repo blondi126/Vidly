@@ -1,0 +1,17 @@
+﻿@model Customer
+@{
+    ViewData["Title"] = $"{Model.Name}";
+}
+
+<div>
+    <h2 class="display-4">@Model.Name</h2>
+    <ul>
+        <li>MembershipType: @Model.MembershipType.Name</li>
+    @{
+        if(Model.Birthday != null)
+        {
+            <li>Birthdate: @Model.Birthday.Value.ToShortDateString()</li>
+        }
+    }
+    </ul>
+</div>

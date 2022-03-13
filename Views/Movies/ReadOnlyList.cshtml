@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Movies";
+}
+
+    <h2>Movies</h2>
+
+<style>
+    .btn{
+        text-transform: none;
+    }
+    .btn-link {
+        text-decoration: none;
+    }
+    .table{
+        vertical-align:middle;
+    }
+</style>
+
+<table id="movies" class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Movie</th>
+      <th>Genre</th>
+    </tr>
+  </thead>
+  <tbody>    
+
+  </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+         $(document).ready(function () {
+
+            var table = $("#movies").DataTable({
+                 ajax: {
+                     url: "/api/movies",
+                     dataSrc: ""
+                 },
+                 columns: [
+                     {
+                         data: "name"
+                     },
+                     {
+                         data: "genre.name"
+                     }
+                 ]
+             });
+         });
+    </script>
+}
